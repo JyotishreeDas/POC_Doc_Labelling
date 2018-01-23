@@ -4,23 +4,25 @@ import java.io.File;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.poc.Documentlabelling.DAO.DocumentDao;
+import com.poc.Documentlabelling.DAO.DocumentDaoImpl;
 import com.poc.Documentlabelling.entity.Document;
 
 @Service
 public class DocumentServiceImpl implements DocumentService {
 	
 	@Autowired
-	private DocumentDao documentDAO;
+    private JdbcTemplate jdbcTemplate;
 	
 	@Override
 	public List<Document> getAllDocuments(){
-		
-		return documentDAO.getAllDocuments();
-		
+		DocumentDao documentDao = new DocumentDaoImpl(jdbcTemplate);
+		return documentDao.getAllDocuments();
+				
 	}
 	
 	
